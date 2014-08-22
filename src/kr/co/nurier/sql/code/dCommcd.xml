@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dCommCdDAO">
+    <sql id="tableName">TB_HONGD_COMMCD</sql>
+    <sql id="asCol">
+        CD_ID      AS cdId
+        ,CD_DTL_ID AS cdDtlId
+        ,CD_DTL_NM AS cdDtlNm
+        ,CD_RANK   AS cdRank
+        ,CD_DESC   AS cdDesc
+        ,IS_USED   AS isUsed
+    </sql>
+    
+    <sql id="col">
+        CD_ID
+        ,CD_DTL_ID
+        ,CD_DTL_NM
+        ,CD_RANK
+        ,CD_DESC
+        ,IS_USED
+    </sql>
+    
+	<select id="select" parameterType="dCommcdVO" resultType="dCommcdVO">
+        SELECT
+          <include refid="asCol" />
+          FROM  <include refid="tableName" />
+          CD_ID = #{cdId}
+    </select>
+    
+    <select id="selectList" parameterType="dCommcdVO" resultType="dCommcdVO">
+        SELECT
+        <include refid="asCol" />
+        FROM  <include refid="tableName" />
+        <where>
+            <if test="(cdId != null and cdId != '') ">
+                AND CD_ID = #{cdId}
+            </if>
+            <if test="(cdDtlNm != null and cdDtlNm != '') ">
+                AND CD_DTL_NM like '%'||#{cdDtlNm}||'%'
+            </if>
+            <if test="(cdDesc != null and cdDesc != '') ">
+                AND CD_DESC like '%'|| #{cdDesc}||'%'
+            </if>
+        </where>
+        ORDER BY CD_RANK
+    </select>
+    
+    <insert id="insert"  parameterType="dCommcdVO" >
+        INSERT INTO NU_ADMIN (
+            ID
+            ,PWD
+            ,NAME
+            ,USE_YN
+            ,EMAIL
+            ,CREATE_DATE
+        ) VALUES (
+            #{id}
+            ,#{pwd}
+            ,#{name}
+            ,'Y'
+            ,#{email}
+            ,sysdate
+        )
+    </insert>
+        
+</mapper>

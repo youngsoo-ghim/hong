@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+   
+    <settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+    </settings> 
+    <typeAliases>
+	    <typeAlias alias="bbsVO" type="kr.co.nurier.vo.bbs.BbsVO" />
+	    <typeAlias alias="mCommcdVO" type="kr.co.nurier.vo.code.MCommCdVO" />
+	    <typeAlias alias="dCommcdVO" type="kr.co.nurier.vo.code.DCommCdVO" />
+	    <typeAlias alias="mGoodVO" type="kr.co.nurier.vo.good.MGoodVO" />
+	    <typeAlias alias="dGoodVO" type="kr.co.nurier.vo.good.DGoodVO" />
+	    <typeAlias alias="dGoodItemVO" type="kr.co.nurier.vo.good.DGoodItemVO" />
+<!--
+	    <typeAlias alias="personIcon" type="pharming.domain.PersonIcon" />
+	    <typeAlias alias="adminVO" type="pharming.domain.AdminVO" />
+	    <typeAlias alias="personIconVO" type="pharming.domain.PersonIconVO" />
+	    <typeAlias alias="personUrlVO" type="pharming.domain.PersonUrlVO" />-->
+
+    </typeAliases>
+    
+    <mappers>
+        <mapper resource="kr/co/nurier/sql/bbs/bbs.xml"/>
+        <mapper resource="kr/co/nurier/sql/code/mCommcd.xml"/>
+        <mapper resource="kr/co/nurier/sql/code/dCommcd.xml"/>
+        <mapper resource="kr/co/nurier/sql/good/mGood.xml"/>
+        <mapper resource="kr/co/nurier/sql/good/dGood.xml"/>
+        <mapper resource="kr/co/nurier/sql/good/dGoodItem.xml"/>
+<!--
+        <mapper resource="sql/admin.xml"/>
+        <mapper resource="sql/personIcon.xml"/>
+        <mapper resource="sql/personUrl.xml"/>
+        <mapper resource="sql/personUrlHistory.xml"/>-->
+
+    </mappers>
+</configuration>
+

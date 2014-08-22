@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+    <comment>user jsp page location and name</comment>
+    
+    <!-- 개인화 서비스 안내 -->
+    <entry key="0001">/front/main/main</entry>
+    <entry key="0002">/front/news/newsList</entry>
+    <entry key="0003">/front/news/newsDetail</entry>
+    <entry key="0003">/front/news/newsDetail</entry>
+    <entry key="020001">/front/good/goodList</entry>
+
+</properties>

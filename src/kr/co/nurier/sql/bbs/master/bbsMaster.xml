@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bbsMasterDAO">
+    <sql id="tableName">NUBBSMASTER</sql>
+    <sql id="asCol">
+        BBSID            AS bbsId           
+        ,BBSNM           AS bbsNm           
+        ,BBSINTRO        AS bbsIntro        
+        ,TYPECODE        AS typeCode        
+        ,ATTRCODE        AS attrCode        
+        ,REPLYYN         AS replyYn         
+        ,ATTACHEDFILEYN  AS attachedfileYn  
+        ,ATTECHEDFILENUM AS attechedfileNum 
+        ,USEYN           AS useYn           
+        ,INSERTID        AS insertId        
+        ,INSERTDATE      AS insertDate      
+        ,UPDATEID        AS updateId        
+        ,UPDATEDATE      AS updateDate      
+    </sql>
+    
+    <sql id="col">
+        BBSID
+        ,BBSNM
+        ,BBSINTRO
+        ,TYPECODE
+        ,ATTRCODE
+        ,REPLYYN
+        ,ATTACHEDFILEYN
+        ,ATTECHEDFILENUM
+        ,USEYN
+        ,INSERTID
+        ,INSERTDATE
+        ,UPDATEID
+        ,UPDATEDATE
+    </sql>
+    
+	<select id="select" parameterType="bbsMasterVO" resultType="bbsMasterVO">
+        SELECT
+          <include refid="asCol" />
+          FROM  <include refid="tableName" />
+         WHERE  BBSID = #{postId}
+    </select>
+    
+    <select id="selectList" parameterType="bbsMasterVO" resultType="bbsMasterVO">
+        SELECT
+        <include refid="asCol" />
+        FROM  <include refid="tableName" />
+        <where>
+            <if test="( bbsId !=null and bbsId !='') ">
+                AND BBSID = #{postId}
+            </if>
+            <if test="( bbsNm != null and bbsNm != '') ">
+                AND BBSNM like '%'||#{postTitle}||'%'
+            </if>
+        </where>
+    </select>
+    
+    <insert id="insert"  parameterType="bbsMasterVO" >
+        INSERT INTO NU_ADMIN (
+            BBSID
+            ,BBSNM
+            ,BBSINTRO
+            ,TYPECODE
+            ,ATTRCODE
+            ,REPLYYN
+            ,ATTACHEDFILEYN
+            ,ATTECHEDFILENUM
+            ,USEYN
+            ,INSERTID
+            ,INSERTDATE
+            ,UPDATEID
+            ,UPDATEDATE
+        ) VALUES (
+            #{bbsId}
+            ,#{bbsNm}
+            ,#{bbsIntro}
+            ,#{typeCode}
+            ,#{attrCode}
+            ,#{replyYn}
+            ,#{attachedfileYn}
+            ,#{attechedfileNum}
+            ,#{useYn}
+            ,#{insertId}
+            ,sysdate
+            ,#{updateId}
+            ,#{updateDate}
+        )
+    </insert>
+</mapper>

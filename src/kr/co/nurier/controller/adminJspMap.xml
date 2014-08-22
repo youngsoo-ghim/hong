@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+    <comment>administrator jsp page location and name</comment>
+    <!-- 개인화 서비스 안내 -->
+    <entry key="A010001">/admin/code/codeList</entry>
+    <entry key="A010002">/admin/code/codeDetail</entry>
+    <entry key="A010003">/admin/bbs/news/newsDetail</entry>
+    
+</properties>

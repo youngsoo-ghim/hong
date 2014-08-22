@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+    <comment>global properties</comment>
+    <entry key="icon">0000000011</entry>
+    
+    <entry key="web.root"></entry>
+    
+    <entry key="server.url">http://banking.nonghyup.com</entry>
+    <entry key="constant.Y">Y</entry>
+    <entry key="constant.N">N</entry>
+    <entry key="process.code.update">U</entry>
+    <entry key="process.code.delete">D</entry>
+
+</properties>

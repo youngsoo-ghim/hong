@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dGoodItemDAO">
+    <sql id="daoName">dGoodItemDAO</sql>
+    <sql id="tableName">TB_HONGD_GOOD_ITEM</sql>
+    <sql id="asCol">
+        BASE_YMD      AS base_ymd    
+        ,DSRK_CD      AS dsrk_cd     
+        ,GD_CD        AS gd_cd     
+        ,GD_PRICE     AS gd_price  
+        ,GD_UNIT_AMT  AS gd_unit_amt
+        ,GD_UNIT_CD   AS gd_unit_cd 
+    </sql>
+    
+    <sql id="col">
+        BASE_YMD     
+        ,DSRK_CD     
+        ,GD_CD     
+        ,GD_PRICE  
+        ,GD_UNIT_AMT
+        ,GD_UNIT_CD   
+    </sql>
+    
+    <select id="select" parameterType="dGoodItemVO" resultType="dGoodItemVO">
+    /* <include refid="daoName" />.select */
+        SELECT
+          <include refid="asCol" />
+          FROM  <include refid="tableName" />
+        <where>
+            <if test="( base_ymd !=null and base_ymd != '') ">
+                AND BASE_YMD = #{base_ymd}
+            </if>
+            <if test="( dsrk_cd !=null and dsrk_cd != '') ">
+                AND DSRK_CD = #{dsrk_cd}
+            </if>
+            <if test="( gd_cd !=null and gd_cd != '') ">
+                AND GD_CD = #{gd_cd}
+            </if>
+        </where>
+    </select>
+    
+    <select id="count" parameterType="dGoodItemVO" resultType="int">
+    /* <include refid="daoName" />.count */
+        SELECT
+          count(*)
+          FROM  <include refid="tableName" />
+        <where>
+            <if test="( base_ymd !=null and base_ymd != '') ">
+                AND BASE_YMD = #{base_ymd}
+            </if>
+            <if test="( dsrk_cd !=null and dsrk_cd != '') ">
+                AND DSRK_CD = #{dsrk_cd}
+            </if>
+            <if test="( gd_cd !=null and gd_cd != '') ">
+                AND GD_CD = #{gd_cd}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectList" parameterType="dGoodItemVO" resultType="dGoodItemVO">
+    /* <include refid="daoName" />.selectList */
+        SELECT
+        <include refid="asCol" />
+        FROM  <include refid="tableName" />
+        <where>
+            <if test="( base_ymd !=null and base_ymd != '') ">
+                AND BASE_YMD = #{base_ymd}
+            </if>
+            <if test="( dsrk_cd !=null and dsrk_cd != '') ">
+                AND DSRK_CD = #{dsrk_cd}
+            </if>
+        </where>
+        order by base_ymd desc, gd_cd
+    </select>
+    
+    <insert id="goodOrderIsert"  parameterType="dGoodItemVO" >
+    /* <include refid="daoName" />.goodOrderIsert */
+        INSERT INTO <include refid="tableName" /> (
+            <include refid="col" />
+        ) VALUES (
+<!--             to_char(current_timestamp, 'yyyymmDDHH24MIssUS') -->
+            #{base_ymd}
+            ,#{dsrk_cd}
+            ,#{gd_cd}
+            ,#{gd_price}
+            ,#{gd_unit_amt}
+            ,#{gd_unit_cd}
+        )
+    </insert>
+    <update id="update"  parameterType="dGoodItemVO" >
+    /* <include refid="daoName" />.update */
+        UPDATE <include refid="tableName" />
+        <set>
+            <if test="( gd_cd !=null and gd_cd != '') ">
+            GD_PRICE = #{gd_price},
+            </if>
+            <if test="( gd_unit_amt !=null and gd_unit_amt != '') ">
+            GD_UNIT_AMT = #{gd_unit_amt},
+            </if>
+            <if test="( gd_unit_cd !=null and gd_unit_cd != '') ">
+            GD_UNIT_CD = #{gd_unit_cd}
+            </if>
+        </set>
+        WHERE
+            BASE_YMD = #{base_ymd}
+            and DSRK_CD = #{dsrk_cd}
+            and GD_CD = #{gd_cd}
+    </update>
+        
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+    <comment>database resource</comment>
+    <!-- <entry key="driverClass">oracle.jdbc.driver.OracleDriver</entry>
+    <entry key="driverClass">org.postgresql.Driver</entry> -->
+    <entry key="driverClass">core.log.jdbc.driver.PostgresqlDriver</entry>
+<!--    <entry key="url">jdbc:mysql://nurier.iptime.org:3306/simba</entry>-->
+    <entry key="url">jdbc:postgresql://10.240.34.170:5432/hong</entry>
+    
+    <entry key="username">hong</entry>
+    
+    <entry key="password">hong</entry>
+
+</properties>

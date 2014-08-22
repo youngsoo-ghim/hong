@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mGoodDAO">
+    <sql id="daoName">mGoodDAO</sql>
+    <sql id="tableName">TB_HONGM_GOOD</sql>
+    <sql id="asCol">
+        GD_CD      AS gdCd    
+        ,gd_cls_cd  as gdClsCd
+        ,GD_COST    AS gdCost  
+        ,GD_PRICE   AS gdPrice 
+        ,ORD_FC_AMT AS ordFcAmt
+        ,ORD_AMT    AS ordAmt  
+        ,GD_UNIT_AMT  AS gdUnitAmt
+        ,GD_UNIT_CD   AS gdUnitCd 
+        ,gd_box_amt   AS gdBoxAmt 
+        ,BASE_DATE  AS baseDate
+        ,GD_MEMO    AS gdMemo  
+    </sql>
+    
+    <sql id="col">
+        GD_CD     
+        ,gd_cls_cd
+        ,GD_COST   
+        ,GD_PRICE  
+        ,ORD_FC_AMT
+        ,ORD_AMT   
+        ,gd_unit_amt
+        ,gd_unit_cd
+        ,gd_box_amt
+        ,BASE_DATE 
+        ,GD_MEMO   
+    </sql>
+    
+    <select id="select" parameterType="mGoodVO" resultType="mGoodVO">
+    /* <include refid="daoName" />.select */
+        SELECT
+          <include refid="asCol" />
+          ,(select CD_DTL_NM from <include refid="dCommCdDAO.tableName" /> where CD_DTL_ID = GD_CD ) as gdNm
+          FROM  <include refid="tableName" />
+         WHERE  GD_CD = #{gdCd}
+    </select>
+    
+    <select id="count" parameterType="mGoodVO" resultType="int">
+    /* <include refid="daoName" />.count */
+        SELECT
+          count(*)
+          FROM  <include refid="tableName" />
+         WHERE  GD_CD = #{gdCd}
+    </select>
+    
+    <select id="selectList" parameterType="mGoodVO" resultType="mGoodVO">
+    /* <include refid="daoName" />.selectList */
+        SELECT
+        <include refid="asCol" />
+        ,(select CD_DTL_NM from <include refid="dCommCdDAO.tableName" /> where CD_DTL_ID = GD_CD ) as gdNm
+        FROM  <include refid="tableName" />
+        <where>
+            <if test="( gdCd !=null and gdCd != '') ">
+                AND GD_CD = #{gdCd}
+            </if>
+            <if test="( aGdCd !=null and aGdCd != '') ">
+                AND GD_CD IN
+                <foreach index="index" collection="aGdCd" item="gcCdItems" open="(" separator="," close=")" >
+                    #{gcCdItems}
+                </foreach>
+            </if>
+            <if test="( gdClsCd !=null and gdClsCd != '') ">
+                AND gd_cls_cd = #{gdClsCd}
+            </if>
+            <if test="( baseDate !=null and baseDate != '') ">
+                AND BASE_DATE = #{baseDate}
+            </if>
+        </where>
+    </select>
+    
+    <insert id="goodOrderIsert"  parameterType="mGoodVO" >
+    /* <include refid="daoName" />.goodOrderIsert */
+        INSERT INTO <include refid="tableName" /> (
+            <include refid="col" />
+        ) VALUES (
+            #{gdCd}
+            ,#{gdClsCd}
+            ,#{gdCost}
+            ,#{gdPrice}
+            ,#{ordFcAmt}
+            ,#{ordAmt}
+            ,#{gdUnitAmt}
+            ,#{gdUnitCd}
+            ,#{gdBoxAmt}
+            ,#{baseDate}
+            --,current_timestamp
+            ,#{gdMemo}
+        )
+    </insert>
+    <update id="update"  parameterType="mGoodVO" >
+    /* <include refid="daoName" />.update */
+        UPDATE <include refid="tableName" />
+        <set>
+            <if test="( gdCost !=null and gdCost != '') ">
+            GD_COST = #{gdPrice},
+            </if>
+            <if test="( gdClsCd !=null and gdClsCd != '') ">
+            gd_cls_cd = #{gdClsCd},
+            </if>
+            <if test="( gdPrice !=null and gdPrice != '') ">
+            GD_PRICE = #{gdPrice},
+            </if>
+            <if test="( ordFcAmt !=null and ordFcAmt != '') ">
+            ORD_FC_AMT = #{ordFcAmt},
+            </if>
+            <if test="( ordAmt !=null and ordAmt != '') ">
+            ORD_AMT = #{ordAmt},
+            </if>
+            <if test="( gdUnitAmt !=null and gdUnitAmt != '') ">
+            GD_UNIT_AMT = #{gdUnitAmt},
+            </if>
+            <if test="( gdUnitCd !=null and gdUnitCd != '') ">
+            GD_UNIT_CD = #{gdUnitCd},
+            </if>
+            <if test="( gdBoxAmt !=null and gdBoxAmt != '') ">
+            gd_box_amt = #{gdBoxAmt},
+            </if>
+            <if test="( baseDate !=null and baseDate != '') ">
+            BASE_DATE = #{baseDate},
+            </if>
+            <if test="( gdMemo !=null and gdMemo != '') ">
+            GD_MEMO = #{gdMemo}
+            </if>
+        </set>
+        WHERE
+            GD_CD = #{gdCd}
+    </update>
+        
+</mapper>

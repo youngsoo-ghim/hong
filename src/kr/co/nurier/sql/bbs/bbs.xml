@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bbsDAO">
+    <sql id="tableName">NUBBS</sql>
+    <sql id="asCol">
+        POSTID AS          postId       
+        ,BBSID AS          bbsId        
+        ,POSTTITLE AS      postTitle    
+        ,POSTCONTENTS AS   postContents 
+        ,ANSYN AS          ansYn        
+        ,PARENTSID AS      parentsId    
+        ,SORTORDER AS      sortOrder    
+        ,READCNT AS        readCnt      
+        ,USEYN AS          useYn        
+        ,POSTBEGINDATE AS  postBeginDate
+        ,POSTBENDDATE AS   postEndDate  
+        ,PWD AS            pwd          
+        ,ATTCHEDFILEID AS  attchedFileid
+        ,INSERTID AS       insertId     
+        ,INSERTDATE AS     insertDate   
+        ,UPDATEID AS       updateId     
+        ,UPDATEDATE AS     updateDate   
+    </sql>
+    
+    <sql id="col">
+        POSTID
+        ,BBSID
+        ,POSTTITLE
+        ,POSTCONTENTS
+        ,ANSYN
+        ,PARENTSID
+        ,SORTORDER
+        ,READCNT
+        ,USEYN
+        ,POSTBEGINDATE
+        ,POSTBENDDATE
+        ,PWD
+        ,ATTCHEDFILEID
+        ,INSERTID
+        ,INSERTDATE
+        ,UPDATEID
+        ,UPDATEDATE
+    </sql>
+    
+	<select id="select" parameterType="bbsVO" resultType="bbsVO">
+        SELECT
+          <include refid="asCol" />
+          FROM  <include refid="tableName" />
+         WHERE  POSTID = #{postId}
+    </select>
+    
+    <select id="selectList" parameterType="bbsVO" resultType="bbsVO">
+        SELECT
+        <include refid="asCol" />
+        FROM  <include refid="tableName" />
+        <where>
+            <if test="(postId!=null and postId!='') ">
+                AND POSTID = #{postId}
+            </if>
+            <if test="(postTitle != null and postTitle != '') ">
+                AND POSTTITLE like '%'||#{postTitle}||'%'
+            </if>
+            <if test="(postContents != null and postContents != '') ">
+                AND POSTCONTENTS like '%'|| #{postContents}||'%'
+            </if>
+        </where>
+    </select>
+    
+    <insert id="insert"  parameterType="bbsVO" >
+        INSERT INTO NU_ADMIN (
+            ID
+            ,PWD
+            ,NAME
+            ,USE_YN
+            ,EMAIL
+            ,CREATE_DATE
+        ) VALUES (
+            #{id}
+            ,#{pwd}
+            ,#{name}
+            ,'Y'
+            ,#{email}
+            ,sysdate
+        )
+    </insert>
+        
+</mapper>
